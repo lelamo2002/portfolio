@@ -18,7 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${firaCode.variable}`}>{children}</body>
+      <body className={`${firaCode.variable}`}>
+            <div className="flex w-screen h-screen bg-primary-black justify-center items-center">
+              <div className="flex flex-wrap w-[96%] h-[94%] bg-primary-dark-blue justify-center items-center rounded-xl border-line border">
+        {children}
+              </div>
+            </div>
+        </body>
     </html>
   );
 }

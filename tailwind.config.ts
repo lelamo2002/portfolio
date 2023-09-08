@@ -17,10 +17,17 @@ const config: Config = {
         firaCode: ['var(--Fira-Code)', 'monospace'],
       },
 
+      gridTemplateColumns: {
+        'wormGame': 'repeat(24, minmax(0, 1fr))',
+      },
+
+      gridTemplateRows: {
+        'wormGame': 'repeat(40, minmax(0, 1fr))',
+      },
       
     },
     fontSize: {
-      "headline" : "62px",
+      "headline" : "58px",
       "subheadline" : "32px",
       "body" : "18px",
       "lable" : "16px",
@@ -42,7 +49,7 @@ const config: Config = {
       accent: {
         "orange" : "#FEA55F",
         "light-cyan" : "#43D9AD",
-        "pastel-oragne" : "#E99287",
+        "pastel-orange" : "#E99287",
         "purple" : "#C98BDF",
       },
 
