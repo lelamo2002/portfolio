@@ -1,6 +1,8 @@
+import Header from "@/components/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${firaCode.variable}`}>
-        <div className="flex w-screen h-screen bg-primary-black justify-center items-center">
-          <div className="flex flex-1 mx-4 h-[96%] bg-primary-dark-blue justify-center items-center rounded-xl border-line border">
+        <div className="flex h-screen bg-primary-black justify-center items-center font-firaCode">
+          <div className="flex mx-4 w-11/12 h-[96%] bg-primary-dark-blue justify-between items-center rounded-xl border-line border flex-col overflow-hidden">
+            <Header />
             {children}
+            <Footer />
           </div>
         </div>
       </body>

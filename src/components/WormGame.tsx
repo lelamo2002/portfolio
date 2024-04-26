@@ -1,12 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import throttle from "lodash/throttle";
+interface WormGameProps {
+  gridWidth: number;
+  gridHeight: number;
+  setScore: (score: number) => void;
+}
 
-export default function WormGame() {
-  const gridWidth = 24;
-  const gridHeight = 40;
+export default function WormGame({
+  gridWidth,
+  gridHeight,
+  setScore,
+}: WormGameProps) {
+  // const gridWidth = 24;
+  // const gridHeight = 40;
 
   const axys = {
     ArrowUp: "y",
@@ -27,8 +35,6 @@ export default function WormGame() {
   ];
   const [worm, setWorm] = useState<number[][]>(defaultWorm);
 
-  const [score, setScore] = useState<number>(0);
-
   const [moveDirection, setMoveDirection] = useState<
     "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight"
   >("ArrowUp");
@@ -36,8 +42,8 @@ export default function WormGame() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
 
   function getFoodPosition() {
-    let x = Math.floor(Math.random() * gridWidth);
-    let y = Math.floor(Math.random() * gridHeight);
+    let x = Math.floor(Math.random() * (gridWidth - 1));
+    let y = Math.floor(Math.random() * (gridHeight - 1));
 
     if (worm.some((wormCell) => wormCell[0] === x && wormCell[1] === y)) {
       console.log("food in worm");
@@ -116,26 +122,6 @@ export default function WormGame() {
     }
   }
 
-  const throttledInputHandler = useCallback(
-    throttle((event: KeyboardEvent) => {
-      if (
-        event.key === "ArrowUp" ||
-        event.key === "ArrowDown" ||
-        event.key === "ArrowLeft" ||
-        event.key === "ArrowRight"
-      ) {
-        setGameStarted(true);
-
-        if (axys[event.key] === axys[moveDirection]) {
-          return;
-        }
-
-        setMoveDirection(event.key);
-      }
-    }, 100), // Throttle time in milliseconds
-    [moveDirection, axys]
-  );
-
   function gameOver() {
     setMoveDirection("ArrowUp");
     setGameStarted(false);
@@ -205,18 +191,15 @@ export default function WormGame() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (gameStarted) {
-        setWorm((worm) => moveWorm(moveDirection));
+        setWorm(() => moveWorm(moveDirection));
+        setScore(worm.length - defaultWorm.length);
       }
-    }, 25);
+    }, 50);
 
     return () => {
       clearInterval(interval);
     };
   });
-
-  useEffect(() => {
-    setScore(worm.length - defaultWorm.length);
-  }, [worm]);
 
   return <RenderTiles />;
 }

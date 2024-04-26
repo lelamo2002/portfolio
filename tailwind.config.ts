@@ -25,41 +25,41 @@ const config: Config = {
         'wormGame': 'repeat(40, minmax(0, 1fr))',
       },
       
-    },
-    fontSize: {
-      "headline" : "58px",
-      "subheadline" : "32px",
-      "body" : "18px",
-      "lable" : "16px",
-      "codeSnippets" : "14px",
-    },
-    colors: {
-      primary: {
-        "black" : "#01080E",
-        "darker-blue" : "#011221",  
-        "dark-blue" : "#011627",
+      fontSize: {
+        "headline" : "58px",
+        "subheadline" : "32px",
+        "body" : "18px",
+        "lable" : "16px",
+        "codeSnippets" : "14px",
       },
-      secondary: {
-        "grey": "#607B96",
-        "cyan" : "#3C9D93",
-        "light-blue" : "#4D5BCE",
-        "white" : "#FFFFFF",
+      colors: {
+        primary: {
+          "black" : "#01080E",
+          "darker-blue" : "#011221",  
+          "dark-blue" : "#011627",
+        },
+        secondary: {
+          "grey": "#607B96",
+          "cyan" : "#3C9D93",
+          "light-blue" : "#4D5BCE",
+          "white" : "#FFFFFF",
+        },
+  
+        accent: {
+          "orange" : "#FEA55F",
+          "light-cyan" : "#43D9AD",
+          "pastel-orange" : "#E99287",
+          "purple" : "#C98BDF",
+        },
+  
+        line: {
+          DEFAULT: "#1E2D3D",
+        },
+  
+        gradient: {
+          "gradient-1" : "linear-gradient(180deg, #4D5BCE 0%, #43D9AD 100%)",
+        }
       },
-
-      accent: {
-        "orange" : "#FEA55F",
-        "light-cyan" : "#43D9AD",
-        "pastel-orange" : "#E99287",
-        "purple" : "#C98BDF",
-      },
-
-      line: {
-        DEFAULT: "#1E2D3D",
-      },
-
-      gradient: {
-        "gradient-1" : "linear-gradient(180deg, #4D5BCE 0%, #43D9AD 100%)",
-      }
     },
   },
   plugins: [],
