@@ -15,6 +15,7 @@ const config: Config = {
       },
       fontFamily: {
         firaCode: ['var(--Fira-Code)', 'monospace'],
+        pixelifySans: ['var(--Pixelify-Sans)', 'sans-serif'],
       },
 
       gridTemplateColumns: {
