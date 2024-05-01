@@ -1,11 +1,7 @@
-"use client";
 import WormGame from "@/components/WormGame";
-import { useState } from "react";
 
 export default function Home() {
   const role = "> Fullstack developer";
-
-  const [score, setScore] = useState<number>(0);
 
   const GithubLink = () => (
     <div className="flex flex-row gap-2">
@@ -38,19 +34,8 @@ export default function Home() {
           <GithubLink />
         </div>
       </div>
-      <div className="flex p-4 bg-[linear-gradient(180deg,#237b6d,rgba(67,217,173,.13))]  rounded-xl">
-        <div className=" m-2 bg-primary-dark-blue rounded-xl w-[192px] overflow-hidden ">
-          <WormGame setScore={setScore} gridHeight={40} gridWidth={24} />
-        </div>
-        <div className=" m-2 w-[192px]">
-          <div className="p-2 bg-[#011423]/[.19] rounded-xl h-[134px]">
-            <p>{"// use keyboard"}</p>
-            <p>{"// arrows to start"}</p>
-            <p>{"// playing"}</p>
-            <p>{`// score: ${score}`}</p>
-          </div>
-        </div>
-      </div>
+
+      <WormGame gridHeight={40} gridWidth={24} />
     </div>
   );
 }

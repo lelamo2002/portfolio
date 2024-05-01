@@ -1,20 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ScoreForm from "./ScoreForm";
 
 interface WormGameProps {
   gridWidth: number;
   gridHeight: number;
-  setScore: (score: number) => void;
 }
 
-export default function WormGame({
-  gridWidth,
-  gridHeight,
-  setScore,
-}: WormGameProps) {
+export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
   // const gridWidth = 24;
   // const gridHeight = 40;
+
+  const [score, setScore] = useState<number>(0);
 
   const axys = {
     ArrowUp: "y",
@@ -122,6 +120,12 @@ export default function WormGame({
     }
   }
 
+  function startGame() {
+    setGameStarted(true);
+    setWorm(defaultWorm);
+    setFood(getFoodPosition());
+  }
+
   function gameOver() {
     setMoveDirection("ArrowUp");
     setGameStarted(false);
@@ -201,5 +205,30 @@ export default function WormGame({
     };
   });
 
-  return <RenderTiles />;
+  return (
+    <div className="flex p-4 bg-[linear-gradient(180deg,#237b6d,rgba(67,217,173,.13))]  rounded-xl">
+      <div className=" m-2 bg-primary-dark-blue rounded-xl w-[192px] overflow-hidden ">
+        {!gameStarted && score == 0 && (
+          <div className="w-48 h-80 flex items-center justify-center text-center flex-col">
+            <p className="text-4xl font-pixelifySans">Worm Game</p>
+            <p className="text-2xl font-pixelifySans">Press arrows to start</p>
+          </div>
+        )}
+
+        {!gameStarted && score > 0 && (
+          <ScoreForm score={score} restartGame={() => startGame()} />
+        )}
+
+        {gameStarted && <RenderTiles />}
+      </div>
+      <div className=" m-2 w-[192px]">
+        <div className="p-2 bg-[#011423]/[.19] rounded-xl h-[134px]">
+          <p>{"// use keyboard"}</p>
+          <p>{"// arrows to start"}</p>
+          <p>{"// playing"}</p>
+          <p>{`// score: ${score}`}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
