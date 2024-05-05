@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react";
 import ScoreForm from "./ScoreForm";
+import Leaderboard from "./Leaderboard";
+import ArrowKeys from "./ArrowKeys";
 
 interface WormGameProps {
   gridWidth: number;
   gridHeight: number;
 }
+
+type IGameState = "playing" | "gameover" | "start" | "leaderboard";
 
 export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
   // const gridWidth = 24;
@@ -37,7 +41,7 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
     "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight"
   >("ArrowUp");
 
-  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [gameState, setGameState] = useState<IGameState>("start");
 
   function getFoodPosition() {
     let x = Math.floor(Math.random() * (gridWidth - 1));
@@ -47,8 +51,6 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
       console.log("food in worm");
       return getFoodPosition();
     }
-
-    console.log("food position: ", x, y);
 
     return [x, y];
   }
@@ -103,32 +105,34 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
     );
   }
 
-  function inputHandler(event: KeyboardEvent) {
+  function inputHandler(direction: string) {
     if (
-      event.key === "ArrowUp" ||
-      event.key === "ArrowDown" ||
-      event.key === "ArrowLeft" ||
-      event.key === "ArrowRight"
+      (direction === "ArrowUp" ||
+        direction === "ArrowDown" ||
+        direction === "ArrowLeft" ||
+        direction === "ArrowRight") &&
+      gameState === "playing"
     ) {
-      setGameStarted(true);
+      setGameState("playing");
 
-      if (axys[event.key] === axys[moveDirection]) {
-        return;
-      }
-
-      setMoveDirection(event.key);
+      setMoveDirection((prev) => {
+        if (axys[direction] === axys[prev]) {
+          return prev;
+        }
+        return direction;
+      });
     }
   }
 
-  function startGame() {
-    setGameStarted(true);
+  function restartGame() {
+    setGameState("start");
     setWorm(defaultWorm);
     setFood(getFoodPosition());
   }
 
   function gameOver() {
     setMoveDirection("ArrowUp");
-    setGameStarted(false);
+    setGameState("gameover");
     return defaultWorm;
   }
 
@@ -169,6 +173,7 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
         (wormCell) => wormCell[0] === newHead[0] && wormCell[1] === newHead[1]
       )
     ) {
+      console.log("worm collision");
       return gameOver();
     }
 
@@ -185,16 +190,16 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", inputHandler);
+    document.addEventListener("keydown", (e) => inputHandler(e.key));
 
     return () => {
-      document.removeEventListener("keydown", inputHandler);
+      document.removeEventListener("keydown", (e) => inputHandler(e.key));
     };
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (gameStarted) {
+      if (gameState === "playing") {
         setWorm(() => moveWorm(moveDirection));
         setScore(worm.length - defaultWorm.length);
       }
@@ -208,25 +213,48 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
   return (
     <div className="flex p-4 bg-[linear-gradient(180deg,#237b6d,rgba(67,217,173,.13))]  rounded-xl">
       <div className=" m-2 bg-primary-dark-blue rounded-xl w-[192px] overflow-hidden ">
-        {!gameStarted && score == 0 && (
-          <div className="w-48 h-80 flex items-center justify-center text-center flex-col">
+        {gameState == "start" && (
+          <div className="w-48 h-80 flex items-center justify-evenly text-center flex-col">
             <p className="text-4xl font-pixelifySans">Worm Game</p>
-            <p className="text-2xl font-pixelifySans">Press arrows to start</p>
+            <div className="flex flex-col gap-4 font-pixelifySans">
+              <button
+                onClick={() => setGameState("playing")}
+                className="bg-accent-orange p-2 rounded-md"
+              >
+                Start
+              </button>
+
+              <button
+                onClick={() => setGameState("leaderboard")}
+                className="bg-accent-orange p-2 rounded-md"
+              >
+                Leaderboard
+              </button>
+            </div>
           </div>
         )}
 
-        {!gameStarted && score > 0 && (
-          <ScoreForm score={score} restartGame={() => startGame()} />
+        {gameState == "gameover" && (
+          <ScoreForm
+            score={score}
+            restartGame={() => restartGame()}
+            leaderboard={() => setGameState("leaderboard")}
+          />
         )}
 
-        {gameStarted && <RenderTiles />}
+        {gameState == "playing" && <RenderTiles />}
+
+        {gameState == "leaderboard" && (
+          <Leaderboard restartGame={() => setGameState("start")} />
+        )}
       </div>
       <div className=" m-2 w-[192px]">
-        <div className="p-2 bg-[#011423]/[.19] rounded-xl h-[134px]">
+        <div className="p-2 bg-[#011423]/[.19] rounded-xl">
           <p>{"// use keyboard"}</p>
-          <p>{"// arrows to start"}</p>
-          <p>{"// playing"}</p>
+          <p>{"// arrows to play"}</p>
           <p>{`// score: ${score}`}</p>
+
+          <ArrowKeys setMoveDirection={inputHandler} />
         </div>
       </div>
     </div>

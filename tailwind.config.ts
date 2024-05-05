@@ -56,6 +56,18 @@ const config: Config = {
         line: {
           DEFAULT: "#1E2D3D",
         },
+
+        button: {
+          "primary" : "#FEA55F",
+          "default" : "#1C2B3A",
+          "ghost" : "#010C15",
+
+          hover: {
+            "primary" : "#FEBE8C",
+            "default" : "#2A3B4C",
+            "ghost" : "#0A141D",
+          },
+        },
   
         gradient: {
           "gradient-1" : "linear-gradient(180deg, #4D5BCE 0%, #43D9AD 100%)",

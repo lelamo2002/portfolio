@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Fira_Code, Pixelify_Sans } from "next/font/google";
 import Footer from "@/components/Footer";
+import "remixicon/fonts/remixicon.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

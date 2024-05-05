@@ -36,7 +36,7 @@ export default function Header() {
     <div className="flex flex-row justify-between w-full border-line border-b text-secondary-grey">
       <div className="flex flex-row">
         <div className="h-14 border-r pl-4 pr-14 flex border-line items-center hover:text-secondary-white ">
-          Leonardo Lago Moreno
+          <p className="truncate">Leonardo Lago Moreno</p>
         </div>
 
         {HeaderTabs.map((tab, index) => {
