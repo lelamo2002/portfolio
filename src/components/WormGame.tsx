@@ -211,7 +211,7 @@ export default function WormGame({ gridWidth, gridHeight }: WormGameProps) {
   });
 
   return (
-    <div className="flex p-4 bg-[linear-gradient(180deg,#237b6d,rgba(67,217,173,.13))]  rounded-xl">
+    <div className="flex p-4 bg-[linear-gradient(180deg,#237b6d,rgba(67,217,173,.13))]  rounded-xl max-md:hidden">
       <div className=" m-2 bg-primary-dark-blue rounded-xl w-[192px] overflow-hidden ">
         {gameState == "start" && (
           <div className="w-48 h-80 flex items-center justify-evenly text-center flex-col">

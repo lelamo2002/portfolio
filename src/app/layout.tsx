@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${firaCode.variable} ${pixelifySans.variable}`}>
         <div className="flex h-screen bg-primary-black justify-center items-center font-firaCode">
-          <div className="flex mx-4 w-11/12 h-[96%] bg-primary-dark-blue justify-between items-center rounded-xl border-line border flex-col overflow-hidden">
+          <div className="flex mx-4 w-11/12 h-[96%] bg-primary-dark-blue justify-between items-center rounded-xl border-line border flex-col">
             <Header />
             {children}
             <Footer />
