@@ -36,7 +36,7 @@ export default function Header() {
     <>
       <div className="hidden md:flex flex-row justify-between w-full border-line border-b text-secondary-grey">
         <div className="flex flex-row">
-          <div className="h-14 md:border-r pl-4 pr-14 flex border-line items-center hover:text-secondary-white ">
+          <div className="h-14 md:border-r pl-4 w-80 flex border-line items-center hover:text-secondary-white ">
             <p className="truncate">Leonardo Lago Moreno</p>
           </div>
 
